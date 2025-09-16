@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pandas
+torch
+transformers
+sentence-transformers
+setfit
+scikit-learn==1.2.2
+numpy==1.24.3
