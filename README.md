@@ -71,15 +71,6 @@ This prototype demonstrates a production-like flow for converting invoice/transa
 
 The pipeline automates CO₂e estimation in five layers, turning messy invoice/transaction data into decision-ready dashboards:
 
-flowchart LR
-    A[Raw Data<br>(Invoices, Transactions)] --> B[Standardization<br>(Units, Currencies, Categories)]
-    B --> C[Emission Factor Consolidation<br>(ADEME, EXIOBASE, Climatiq)]
-    C --> D[Matching Engine<br>• Rules (units)<br>• NLP embeddings<br>• Confidence scoring]
-    D --> E[Emission Calculation<br>CO₂e = Activity × Factor]
-    E --> F[Outputs<br>• FastAPI JSON<br>• Power BI Dashboard<br>• Traceable Results]
-
-### 📝 Step-by-step
-
 1. **Raw Data (input)**  
    - Invoices, ERP exports, procurement spreadsheets.  
    - Typically free-text descriptions + numeric values (e.g., *“Diesel fuel 20 L”*).  
