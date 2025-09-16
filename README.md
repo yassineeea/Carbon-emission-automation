@@ -74,7 +74,7 @@ This prototype demonstrates a production-like flow for converting invoice/transa
 
 - `demo/invoice_parsed.png` — parsed invoice line items  
 - `demo/api_response.png` — FastAPI JSON response sample  
-- `EMFA.png` — Power BI dashboard screenshot
+- `main/EMFA.png` — Power BI dashboard screenshot
 
 ---
 
