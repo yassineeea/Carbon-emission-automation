@@ -67,7 +67,70 @@ This prototype demonstrates a production-like flow for converting invoice/transa
 - **Optional cloud:** Render, Railway, Azure App Service / Functions
 
 ---
+## ⚙️ How the automation logic works
 
+The pipeline automates CO₂e estimation in five layers, turning messy invoice/transaction data into decision-ready dashboards:
+
+flowchart LR
+    A[Raw Data<br>(Invoices, Transactions)] --> B[Standardization<br>(Units, Currencies, Categories)]
+    B --> C[Emission Factor Consolidation<br>(ADEME, EXIOBASE, Climatiq)]
+    C --> D[Matching Engine<br>• Rules (units)<br>• NLP embeddings<br>• Confidence scoring]
+    D --> E[Emission Calculation<br>CO₂e = Activity × Factor]
+    E --> F[Outputs<br>• FastAPI JSON<br>• Power BI Dashboard<br>• Traceable Results]
+
+🔎 Step-by-step
+
+1. Raw Data (input)
+2. Invoices, ERP exports, procurement data.
+3. Often free-text descriptions + numeric values (e.g., “Diesel fuel 20 L”).
+4. Standardization & enrichment
+5. Normalize units, currencies, suppliers, product categories.
+6. Prepare structured “activity data” ready for factor matching.
+
+
+
+
+
+
+
+
+
+
+
+
+Emission factor consolidation
+
+Merge ADEME, EXIOBASE, DEFRA, Climatiq, etc. into a single lookup table.
+
+Harmonize units (kg, L, kWh, km) and attach metadata (scope, category, source).
+
+Matching engine (core logic)
+
+Rule-based: direct unit matches when possible.
+
+Semantic/NLP: embeddings compare text (“fuel card” ≈ “diesel, passenger car”).
+
+Confidence scoring: keeps track of uncertainty, allows overrides.
+
+Emission calculation
+
+Formula:
+
+Emissions (CO₂e) = Activity Data (quantity) × Emission Factor
+
+
+Automatic unit conversion (e.g., liters ↔ MJ ↔ kgCO₂e).
+
+Store transaction-level emissions for aggregation.
+
+Outputs
+
+FastAPI microservice → JSON responses with matches + emissions.
+
+Power BI dashboard → KPIs, supplier/category trends, audit trail.
+
+Every CO₂e number is traceable back to original data + factor.
+    
 ## 📷 Demo / Screenshots
 
 > Replace these placeholders with your actual images / Loom links.
