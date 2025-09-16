@@ -78,58 +78,40 @@ flowchart LR
     D --> E[Emission Calculation<br>CO₂e = Activity × Factor]
     E --> F[Outputs<br>• FastAPI JSON<br>• Power BI Dashboard<br>• Traceable Results]
 
-🔎 Step-by-step
+### 📝 Step-by-step
 
-1. Raw Data (input)
-2. Invoices, ERP exports, procurement data.
-3. Often free-text descriptions + numeric values (e.g., “Diesel fuel 20 L”).
-4. Standardization & enrichment
-5. Normalize units, currencies, suppliers, product categories.
-6. Prepare structured “activity data” ready for factor matching.
+1. **Raw Data (input)**  
+   - Invoices, ERP exports, procurement spreadsheets.  
+   - Typically free-text descriptions + numeric values (e.g., *“Diesel fuel 20 L”*).  
 
+2. **Standardization & Enrichment**  
+   - Normalize units, currencies, and suppliers.  
+   - Map transactions to activity categories (GHG protocol, ISO codes).  
+   - Output: structured “activity data” ready for matching.  
 
+3. **Emission Factor Consolidation**  
+   - Merge multiple sources: ADEME, EXIOBASE, DEFRA, Climatiq.  
+   - Harmonize units (kg, L, kWh, km).  
+   - Attach metadata (scope, category, source reference).  
 
+4. **Matching Engine (core logic)**  
+   - **Rule-based:** direct matches via unit/type (e.g., *“20 L diesel” → fuel factor*).  
+   - **Semantic/NLP:** embeddings compare text (*“fuel card” ≈ “diesel, passenger car”*).  
+   - **Confidence scoring:** quantifies uncertainty and supports overrides.  
 
+5. **Emission Calculation**  
+   - Formula:  
+     ```text
+     Emissions (CO₂e) = Activity Data (quantity) × Emission Factor
+     ```  
+   - Automatic unit conversions (liters ↔ MJ ↔ kgCO₂e).  
+   - Store transaction-level emissions for aggregation.  
 
+6. **Outputs**  
+   - **FastAPI microservice:** JSON responses with matches + emissions.  
+   - **Power BI dashboards:** KPIs, supplier/category trends, audit trail.  
+   - Every CO₂e number is traceable back to original data + factor.  
 
-
-
-
-
-
-
-Emission factor consolidation
-
-Merge ADEME, EXIOBASE, DEFRA, Climatiq, etc. into a single lookup table.
-
-Harmonize units (kg, L, kWh, km) and attach metadata (scope, category, source).
-
-Matching engine (core logic)
-
-Rule-based: direct unit matches when possible.
-
-Semantic/NLP: embeddings compare text (“fuel card” ≈ “diesel, passenger car”).
-
-Confidence scoring: keeps track of uncertainty, allows overrides.
-
-Emission calculation
-
-Formula:
-
-Emissions (CO₂e) = Activity Data (quantity) × Emission Factor
-
-
-Automatic unit conversion (e.g., liters ↔ MJ ↔ kgCO₂e).
-
-Store transaction-level emissions for aggregation.
-
-Outputs
-
-FastAPI microservice → JSON responses with matches + emissions.
-
-Power BI dashboard → KPIs, supplier/category trends, audit trail.
-
-Every CO₂e number is traceable back to original data + factor.
     
 ## 📷 Demo / Screenshots
 
